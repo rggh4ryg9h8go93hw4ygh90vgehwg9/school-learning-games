@@ -2,97 +2,106 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Classroom 666x</title>
+    <title>Academic Resource Hub - Study Portal</title>
     <style>
-        body { font-family: 'Courier New', monospace; background-color: #0a0a0a; color: #00ff41; text-align: center; padding: 20px; margin: 0; }
+        /* Stealth Styling: Looks like a school site, but acts like a game hub */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; color: #1c1e21; text-align: center; margin: 0; padding: 20px; }
         
-        /* Panic Button Style */
-        #panic-btn { position: fixed; top: 10px; right: 10px; background: #ff0000; color: white; border: none; padding: 10px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; z-index: 1000; }
-        #panic-btn:hover { background: #b30000; }
+        /* Hidden Panic Button: Very light so it's hard for teachers to see */
+        #panic-btn { position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.05); color: #777; border: 1px solid #ccc; padding: 5px 10px; font-size: 11px; cursor: pointer; z-index: 1000; border-radius: 4px; }
+        #panic-btn:hover { background: #ff4b2b; color: white; opacity: 1; }
 
-        h1 { font-size: 3.5em; text-shadow: 3px 3px #ff0000; letter-spacing: 5px; margin-top: 40px; }
+        h1 { color: #2c3e50; font-size: 2.5em; margin-bottom: 5px; }
+        .subtitle { color: #555; margin-bottom: 30px; font-style: italic; }
+
+        /* Proxy Section - Renamed to "Gateway" to avoid filters */
+        .gateway-box { background: white; border: 1px solid #ddd; padding: 25px; border-radius: 12px; margin: 20px auto; width: 90%; max-width: 600px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .gateway-box h3 { margin-top: 0; color: #3498db; }
+        input, select { padding: 12px; margin: 10px 5px; border-radius: 6px; border: 1px solid #ccc; background: #fff; color: #333; font-size: 16px; width: 80%; }
         
-        /* Proxy Section */
-        .proxy-section { background: #1a1a1a; border: 2px solid #ff0000; padding: 20px; border-radius: 15px; margin: 20px auto; width: 85%; max-width: 700px; box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
-        input, select { padding: 12px; border-radius: 5px; border: 1px solid #00ff41; background: #000; color: #00ff41; font-family: monospace; margin: 5px; }
-        input { width: 50%; }
+        /* The "Launch" Link - Looks like an educational button */
+        .launch-link { display: inline-block; margin-top: 15px; padding: 12px 30px; background: #3498db; color: white; text-decoration: none; font-weight: bold; border-radius: 6px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .launch-link:hover { background: #2980b9; transform: translateY(-2px); }
 
-        /* Game Grid */
+        /* Game Grid - Renamed to "Interactive Modules" */
         .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-top: 40px; }
-        .card { background: #111; border: 1px solid #00ff41; border-radius: 12px; padding: 15px; width: 420px; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 0 15px #00ff41; }
-        .card h3 { color: #ff0000; margin-top: 0; text-transform: uppercase; }
-        
-        iframe { width: 100%; height: 350px; border: none; border-radius: 8px; background: #000; }
-        
-        .btn { display: inline-block; margin-top: 15px; padding: 12px 25px; background: #00ff41; color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; cursor: pointer; border: none; font-family: monospace; }
-        .btn:hover { background: #ff0000; color: #fff; }
+        .card { background: white; border: 1px solid #ddd; border-radius: 12px; padding: 15px; width: 400px; transition: 0.3s; }
+        .card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .card h3 { color: #e74c3c; margin-top: 0; font-size: 1.1em; }
+        iframe { width: 100%; height: 350px; border: none; border-radius: 8px; background: #eee; }
     </style>
 </head>
 <body>
 
-    <!-- PANIC BUTTON -->
-    <button id="panic-btn" onclick="panic()">PANIC (ESC)</button>
+    <!-- INSTANT EXIT -->
+    <button id="panic-btn" onclick="panic()">CLOSE RESOURCES (ESC)</button>
 
-    <h1>CLASSROOM 666x</h1>
-    <p>// MULTI-SERVER PROXY // SYSTEM SECURE //</p>
+    <h1>Academic Resource Hub</h1>
+    <p class="subtitle">Secure Gateway for Research and Interactive Modules</p>
     
-    <!-- PROXY SECTION -->
-    <div class="proxy-section">
-        <h3>WEB PROXY HUB</h3>
-        <p>If one server is blocked, try another from the list!</p>
-        <select id="proxyServer">
-            <option value="https://www.blockaway.net">Server 1 (BlockAway)</option>
-            <option value="https://www.proxysite.com">Server 2 (ProxySite)</option>
-            <option value="https://www.filterbypass.me">Server 3 (FilterBypass)</option>
+    <!-- STEALTH PROXY GATEWAY -->
+    <div class="gateway-box">
+        <h3>Research Access Gateway</h3>
+        <p>Select a server and enter your destination URL below:</p>
+        
+        <select id="serverSelect" onchange="updateLink()">
+            <option value="https://www.blockaway.net">Network Server 1</option>
+            <option value="https://www.proxysite.com">Network Server 2</option>
+            <option value="https://www.filterbypass.me">Network Server 3</option>
         </select>
-        <input type="text" id="proxyInput" placeholder="Enter URL (e.g. poki.com)">
-        <button class="btn" onclick="launchProxy()">LAUNCH</button>
+        
+        <br>
+        <input type="text" id="proxyInput" placeholder="example: youtube.com" onkeyup="updateLink()">
+        <br>
+        
+        <!-- Standard Link to bypass "about:blank#blocked" -->
+        <a id="finalLink" href="https://google.com" target="_blank" rel="noopener noreferrer" class="launch-link">ACCESS MATERIAL</a>
     </div>
 
-    <!-- GAME GRID -->
+    <!-- HIDDEN GAME GRID -->
     <div class="grid">
         <div class="card">
-            <h3>2048 Puzzle</h3>
+            <h3>Module A: Logic & Probability</h3>
             <iframe src="https://gabrielecirulli.github.io"></iframe>
-            <a href="https://gabrielecirulli.github.io" target="_blank" class="btn">FULLSCREEN</a>
         </div>
 
         <div class="card">
-            <h3>Google Snake</h3>
+            <h3>Module B: Geometric Patterns</h3>
             <iframe src="https://www.google.com"></iframe>
-            <a href="https://www.google.com" target="_blank" class="btn">GOOGLE PLAY</a>
         </div>
-
+        
         <div class="card">
-            <h3>Slope Runner</h3>
+            <h3>Module C: Physics Simulation</h3>
             <iframe src="https://www.hoodamath.com"></iframe>
-            <a href="https://www.hoodamath.com" target="_blank" class="btn">MORE GAMES</a>
         </div>
     </div>
 
     <script>
-        // Multi-Server Proxy Function
-        function launchProxy() {
-            var url = document.getElementById('proxyInput').value;
-            var server = document.getElementById('proxyServer').value;
-            if (url) {
-                // Ensure URL starts with https
-                if (!url.startsWith('http')) { url = 'https://' + url; }
-                window.open(server + encodeURIComponent(url), '_blank');
+        // Builds the stealth link as you type
+        function updateLink() {
+            let input = document.getElementById('proxyInput').value;
+            let server = document.getElementById('serverSelect').value;
+            let link = document.getElementById('finalLink');
+            
+            if (input) {
+                let cleanUrl = input;
+                if (!cleanUrl.startsWith('http')) {
+                    cleanUrl = 'https://' + cleanUrl;
+                }
+                link.href = server + encodeURIComponent(cleanUrl);
+            } else {
+                link.href = "https://google.com";
             }
         }
 
-        // Panic Function: Redirects to Google Classroom
+        // Panic Redirect: Instantly goes to Google Classroom
         function panic() {
             window.location.href = "https://classroom.google.com";
         }
 
-        // Shortcut: Pressing 'Escape' also triggers the Panic Button
-        document.addEventListener('keydown', function(e) {
-            if (e.key === "Escape") {
-                panic();
-            }
+        // Key Listener: Pressing 'Escape' triggers panic mode
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") panic();
         });
     </script>
 
