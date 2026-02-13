@@ -6,18 +6,21 @@
     <style>
         body { font-family: 'Courier New', monospace; background-color: #0a0a0a; color: #00ff41; text-align: center; padding: 20px; margin: 0; }
         
-        /* Panic Button */
+        /* Panic Button Style */
         #panic-btn { position: fixed; top: 10px; right: 10px; background: #ff0000; color: white; border: none; padding: 10px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; z-index: 1000; }
-        
+        #panic-btn:hover { background: #b30000; }
+
         h1 { font-size: 3.5em; text-shadow: 3px 3px #ff0000; letter-spacing: 5px; margin-top: 40px; }
         
         /* Proxy Section */
-        .proxy-section { background: #1a1a1a; border: 2px solid #ff0000; padding: 20px; border-radius: 15px; margin: 20px auto; width: 80%; max-width: 600px; box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
-        input { padding: 12px; width: 60%; border-radius: 5px; border: 1px solid #00ff41; background: #000; color: #00ff41; font-family: monospace; }
-        
+        .proxy-section { background: #1a1a1a; border: 2px solid #ff0000; padding: 20px; border-radius: 15px; margin: 20px auto; width: 85%; max-width: 700px; box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
+        input, select { padding: 12px; border-radius: 5px; border: 1px solid #00ff41; background: #000; color: #00ff41; font-family: monospace; margin: 5px; }
+        input { width: 50%; }
+
         /* Game Grid */
         .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-top: 40px; }
         .card { background: #111; border: 1px solid #00ff41; border-radius: 12px; padding: 15px; width: 420px; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 0 15px #00ff41; }
         .card h3 { color: #ff0000; margin-top: 0; text-transform: uppercase; }
         
         iframe { width: 100%; height: 350px; border: none; border-radius: 8px; background: #000; }
@@ -28,18 +31,26 @@
 </head>
 <body>
 
+    <!-- PANIC BUTTON -->
     <button id="panic-btn" onclick="panic()">PANIC (ESC)</button>
 
     <h1>CLASSROOM 666x</h1>
-    <p>// SYSTEM SECURE // PROXY ACTIVE //</p>
+    <p>// MULTI-SERVER PROXY // SYSTEM SECURE //</p>
     
+    <!-- PROXY SECTION -->
     <div class="proxy-section">
-        <h3>WEB PROXY</h3>
-        <p>Enter a URL (e.g. poki.com) to bypass filters</p>
-        <input type="text" id="proxyInput" placeholder="Enter website here...">
+        <h3>WEB PROXY HUB</h3>
+        <p>If one server is blocked, try another from the list!</p>
+        <select id="proxyServer">
+            <option value="https://www.blockaway.net">Server 1 (BlockAway)</option>
+            <option value="https://www.proxysite.com">Server 2 (ProxySite)</option>
+            <option value="https://www.filterbypass.me">Server 3 (FilterBypass)</option>
+        </select>
+        <input type="text" id="proxyInput" placeholder="Enter URL (e.g. poki.com)">
         <button class="btn" onclick="launchProxy()">LAUNCH</button>
     </div>
 
+    <!-- GAME GRID -->
     <div class="grid">
         <div class="card">
             <h3>2048 Puzzle</h3>
@@ -61,23 +72,27 @@
     </div>
 
     <script>
-        // Use CroxyProxy for the Proxy Bar
+        // Multi-Server Proxy Function
         function launchProxy() {
             var url = document.getElementById('proxyInput').value;
+            var server = document.getElementById('proxyServer').value;
             if (url) {
-                // This routes through a high-performance proxy engine
-                window.open('https://www.croxyproxy.com' + encodeURIComponent(url), '_blank');
+                // Ensure URL starts with https
+                if (!url.startsWith('http')) { url = 'https://' + url; }
+                window.open(server + encodeURIComponent(url), '_blank');
             }
         }
 
-        // Panic Function
+        // Panic Function: Redirects to Google Classroom
         function panic() {
             window.location.href = "https://classroom.google.com";
         }
 
-        // Esc key shortcut
+        // Shortcut: Pressing 'Escape' also triggers the Panic Button
         document.addEventListener('keydown', function(e) {
-            if (e.key === "Escape") { panic(); }
+            if (e.key === "Escape") {
+                panic();
+            }
         });
     </script>
 
